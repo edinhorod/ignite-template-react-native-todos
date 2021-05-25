@@ -14,9 +14,10 @@ import checkIcon from "../assets/icons/Check.png";
 
 interface TodoInputProps extends TextInputProps {
   addTask: (task: string) => void;
+  darkTheme?: boolean;
 }
 
-export function TodoInput({ addTask, ...rest }: TodoInputProps) {
+export function TodoInput({ addTask, darkTheme, ...rest }: TodoInputProps) {
   const [task, setTask] = useState("");
 
   function handleAddNewTask() {
@@ -41,8 +42,9 @@ export function TodoInput({ addTask, ...rest }: TodoInputProps) {
     >
       <TextInput
         {...rest}
-        style={styles.input}
+        style={darkTheme ? styles.inputDark : styles.input}
         placeholder="Adicionar novo todo..."
+        placeholderTextColor={darkTheme ? "#fff" : "#000"}
         returnKeyType="send"
         onChangeText={setTask}
         value={task}
@@ -52,7 +54,7 @@ export function TodoInput({ addTask, ...rest }: TodoInputProps) {
       <TouchableOpacity
         testID="add-new-task-button"
         activeOpacity={0.7}
-        style={styles.addButton}
+        style={darkTheme ? styles.addButtonDark : styles.addButton}
         //TODO - onPress prop
         onPress={handleAddNewTask}
       >
@@ -78,6 +80,15 @@ const styles = StyleSheet.create({
     paddingLeft: 12,
     borderTopLeftRadius: 5,
     borderBottomLeftRadius: 5,
+    color: '#000',
+  },
+  inputDark: {
+    flex: 1,
+    backgroundColor: "#34313D",
+    paddingLeft: 12,
+    borderTopLeftRadius: 5,
+    borderBottomLeftRadius: 5,
+    color: '#fff',
   },
   inputIOSShadow: {
     shadowColor: "#000",
@@ -93,6 +104,15 @@ const styles = StyleSheet.create({
   },
   addButton: {
     backgroundColor: "#3FAD27",
+    height: 50,
+    paddingHorizontal: 16,
+    justifyContent: "center",
+    alignItems: "center",
+    borderTopRightRadius: 5,
+    borderBottomRightRadius: 5,
+  },
+  addButtonDark: {
+    backgroundColor: "#988BC7",
     height: 50,
     paddingHorizontal: 16,
     justifyContent: "center",
